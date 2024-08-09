@@ -58,13 +58,27 @@ ul {
     height: 1em;
 }
 
+.toDo {
+    margin: 0 1em 0 0;
+    width: 60vw;
+    word-break: break-word;
+}
+
+.delete {
+    position: relative;
+    top: 0.1em;
+    margin: 0 1em 0 0;
+    width: 1em;
+    height: 1em;
+}
+
 /* Style the list items */
 ul li {
     cursor: pointer;
     position: relative;
-    padding: 12px 8px 12px 0;
+    padding: 1em 0;
     background: #eee;
-    font-size: 18px;
+    font-size: 5vw;
     transition: 0.2s;
 
     /* make the list items unselectable */
@@ -95,6 +109,7 @@ text-decoration: line-through;
 
 /* Add a "checked" mark when clicked on */
 /* 這裡原本會用css產生打勾圖案，用不到 */
+/* ::before => 虛擬元素選擇器 */
 /* ul li.checked::before {
 content: '';
 position: absolute;
@@ -107,6 +122,7 @@ transform: rotate(45deg);
 height: 15px;
 width: 7px;
 } */
+
 
 /* Style the close button */
 .close {
