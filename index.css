@@ -1,3 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
 /* 宣告電腦版不支援 */
 #pcNoRwd {
     display: none;
@@ -32,24 +38,35 @@
 
 /* Remove margins and padding from the list */
 ul {
-margin: 0;
-padding: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.handle {
+    position: relative;
+    top: 0.1em;
+    margin: 0 1em;
+    width: 1em;
+    height: 1em;
 }
 
 /* Style the list items */
 ul li {
-cursor: pointer;
-position: relative;
-padding: 12px 8px 12px 40px;
-background: #eee;
-font-size: 18px;
-transition: 0.2s;
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
 
-/* make the list items unselectable */
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    display: flex;
+
 }
 
 /* Set all odd list items to a different color (zebra-stripes) */
@@ -98,10 +115,11 @@ color: white;
 
 /* Style the header */
 .header {
-background-color: #f44336;
-padding: 30px 40px;
-color: white;
-text-align: center;
+    display: none;
+    background-color: #f44336;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
 }
 
 /* Clear floats after the header */
