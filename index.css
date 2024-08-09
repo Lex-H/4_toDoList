@@ -64,10 +64,24 @@ ul {
     word-break: break-word;
 }
 
+.inputToDoContent {
+    margin: 0 1em 0 0;
+    width: 60vw;
+    font-size: 1em;
+}
+
 .delete {
     position: relative;
     top: 0.1em;
     margin: 0 1em 0 0;
+    width: 1em;
+    height: 1em;
+}
+
+.addToDo {
+    position: relative;
+    top: 0.1em;
+    margin: 0 1em 0 3em;
     width: 1em;
     height: 1em;
 }
@@ -138,13 +152,12 @@ color: white;
 }
 
 /* Style the header */
-.header {
-    display: none;
+/* .header {
     background-color: #f44336;
     padding: 30px 40px;
     color: white;
     text-align: center;
-}
+} */
 
 /* Clear floats after the header */
 .header:after {

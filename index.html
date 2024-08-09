@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <!-- 這是添加代辦事項的模塊，先隱藏 -->
-    <div id="myDIV" class="header">
+    <!-- 這是添加代辦事項的模塊 -->
+    <!-- <div id="myDIV" class="header">
         <h2>My To Do List</h2>
         <input type="text" id="myInput" placeholder="Title...">
         <span onclick="newElement()" class="addBtn">Add</span>
-    </div>
+    </div> -->
     
     <ul id="myUL">
+        <!-- <li class="checked">舊的：Pay  bills</li>
+        <li>舊的：Organize office</li> -->
+
         <li>
             <img src="src/img/handle.png" class="handle">
             <img src="src/img/checkBox.svg" class="checkBox">
@@ -43,17 +46,23 @@
             <img src="src/img/delete.svg" class="delete">
         </li>   
 
+        <li onclick="addToDo()">
+            <img src="src/img/addToDo.svg" class="addToDo">
+            <div>
+                代辦事項
+            </div>
+        </li>   
 
-        <li class="checked">Pay  bills</li>
-        <li>Organize office</li>
-        <li>
-            Uicons by <a href="https://www.flaticon.com/uicons">Flaticon</a>
-        </li>
-        <li>
-            參考教學及採用模板：https://www.w3schools.com/howto/howto_js_todolist.asp/
-        </li>
+        
     </ul>
 
+    <div>
+        <p>致謝</p>
+        <p>參考教學及採用模板：https://www.w3schools.com/howto/howto_js_todolist.asp/</p>    
+        <p>Uicons by <a href="https://www.flaticon.com/uicons">Flaticon</a></p>
+        <p>參考教學及採用模板：Copilot</p>
+    </div>
+    
     <!-- 當使用者用電腦開啟本網站時提醒 -->
     <div id="pcNoRwd">
         <p>
