@@ -62,7 +62,7 @@ ul {
 ul li {
     cursor: pointer;
     position: relative;
-    padding: 12px 8px 12px 40px;
+    padding: 12px 8px 12px 0;
     background: #eee;
     font-size: 18px;
     transition: 0.2s;
@@ -74,7 +74,6 @@ ul li {
     user-select: none;
 
     display: flex;
-
 }
 
 /* Set all odd list items to a different color (zebra-stripes) */
@@ -95,7 +94,8 @@ text-decoration: line-through;
 }
 
 /* Add a "checked" mark when clicked on */
-ul li.checked::before {
+/* 這裡原本會用css產生打勾圖案，用不到 */
+/* ul li.checked::before {
 content: '';
 position: absolute;
 border-color: #fff;
@@ -106,7 +106,7 @@ left: 16px;
 transform: rotate(45deg);
 height: 15px;
 width: 7px;
-}
+} */
 
 /* Style the close button */
 .close {
