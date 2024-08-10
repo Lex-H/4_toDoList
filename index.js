@@ -1,34 +1,43 @@
-// Create a "close" button and append it to each list item
-// var myNodelist = document.getElementsByTagName("LI");
-// var i;
-// for (i = 0; i < myNodelist.length; i++) {
-//   var span = document.createElement("SPAN");
-//   var txt = document.createTextNode("\u00D7");
-//   span.className = "close";
-//   span.appendChild(txt);
-//   myNodelist[i].appendChild(span);
-// }
+// 物件：資料處理
+let listDada = {
+  // 預設data，若localStorage無資料則將預設data存入
+  data: [
+    {
+      title: "代辦清單",
+      checked: false,
+    },
+    {
+      title: "代辦清單小技巧 by Copilot AI：",
+      checked: false,
+    },
+    {
+      title: "使用代辦清單可以有效提升工作效率。首先，將相似的任務一起處理，減少切換時間。其次，一次專注在一項重要任務上，避免分心。限制每日清單上的任務數量，避免過度負擔。完成任務後，給自己一個小獎勵，保持動力。最後，定期回顧清單，調整計劃，確保持續進步 ",
+      checked: false,
+    },
+  ],
+  load: function() {
+    let value = JSON.parse(localStorage.getItem("toDoList"));
+    if (value === null) {
+      this.save(this.data)
+    }else {
+      this.data = value;
+    }
+  },
+  save: function(toDoListArray) {
+    localStorage.setItem("toDoList", JSON.stringify(toDoListArray));
+  },
+}
 
-// Click on a close button to delete the current list item
-// var close = document.getElementsByClassName("delete");
-// var i;
-// for (i = 0; i < close.length; i++) {
-//   close[i].onclick = function() {
-//     var div = this.parentElement;
-//     div.remove();
-//   }
-// }
+
+// --- 初始化：載入頁面時 ---
+// 從localStorage載入數據
+listDada.load()
+// 渲染列表
+
 
 // 點擊事件：li裡面所有的點擊事件
 var list = document.getElementById("myUL");
 list.addEventListener('click', function(ev) {
-  // 舊的代碼
-  // if (ev.target.tagName === 'LI') {
-  //   ev.target.classList.toggle('checked');
-  //   console.log("點擊到LI：" );
-  //   console.log(ev.target);
-  // }
-
   var classClicked =  ev.target.getAttribute('class');
   if (classClicked === null) {
     console.log("class=null，這行代碼阻止報錯，沒有問題，請勿刪除")
@@ -50,58 +59,7 @@ list.addEventListener('click', function(ev) {
   }
 
   // 點擊事件：toDo
-  if (classClicked.includes('toDo')) {
-    // var inputToDoContent = `<textarea class="inputToDoContent">${ev.target.innerText}</textarea>`;
-    // ev.target.outerHTML = inputToDoContent;
-    // setTimeout(function() {
-    //   var newInput = document.getElementsByClassName("inputToDoContent")[0];
-    //   newInput.focus();
-
-    //   // 設置光標位置
-    //   var clickPosition = ev.clientX - newInput.getBoundingClientRect().left;
-    //   var lineHeight = parseInt(window.getComputedStyle(newInput).lineHeight);
-    //   var lines = newInput.value.substr(0, newInput.selectionStart).split("\n");
-    //   var cursorPosition = lines.length - 1;
-    //   var charWidth = newInput.scrollWidth / newInput.cols;
-    //   var charPosition = Math.floor(clickPosition / charWidth);
-    //   var finalPosition = lines.slice(0, cursorPosition).join("\n").length + charPosition;
-
-    //   // 確保光標位置在有效範圍內
-    //   finalPosition = Math.min(finalPosition, newInput.value.length);
-    //   newInput.setSelectionRange(finalPosition, finalPosition);
-
-    //   // 自動調整高度
-    //   newInput.style.height = 'auto';
-    //   newInput.style.height = newInput.scrollHeight + 'px';
-    // }, 0);
-
-    // // 監聽輸入事件，自動調整高度
-    // document.addEventListener('input', function(event) {
-    //   if (event.target.classList.contains('inputToDoContent')) {
-    //     event.target.style.height = 'auto';
-    //     event.target.style.height = event.target.scrollHeight + 'px';
-
-    //     // 自動儲存內容到變數inputToDoContent
-    //     var newInput = document.getElementsByClassName("inputToDoContent")[0];
-    //     inputToDoContent = newInput.value; // 使用value屬性
-    //   }
-    // });
-
-    // // 監聽失去焦點事件，恢復原本內容
-    // document.addEventListener('blur', function(event) {
-    //   if (event.target.classList.contains('inputToDoContent')) {
-    //     if (event.target.parentNode) { // 確認元素是否有父節點
-    //       var toDo = `<div class="toDo">
-    //                     ${inputToDoContent}
-    //                   </div>
-    //                   `;
-    //       event.target.outerHTML = toDo;
-    //       // inputToDoContent = "";
-    //     }
-    //   }
-    // }, true);
-
-    
+  if (classClicked.includes('toDo')) {    
     var toDoTextarea = `<textarea class="inputToDoContent">${ev.target.innerText}</textarea>`;
     ev.target.outerHTML = toDoTextarea;
 
@@ -166,33 +124,8 @@ document.addEventListener('blur', function(event) {
   
 }, false);
 
-// Create a new list item when clicking on the "Add" button
-// function newElement() {
-//   var li = document.createElement("li");
-//   var inputValue = document.getElementById("myInput").value;
-//   var t = document.createTextNode(inputValue);
-//   li.appendChild(t);
-//   if (inputValue === '') {
-//     alert("You must write something!");
-//   } else {
-//     document.getElementById("myUL").appendChild(li);
-//   }
-//   document.getElementById("myInput").value = "";
 
-//   var span = document.createElement("SPAN");
-//   var txt = document.createTextNode("\u00D7");
-//   span.className = "close";
-//   span.appendChild(txt);
-//   li.appendChild(span);
-
-//   for (i = 0; i < close.length; i++) {
-//     close[i].onclick = function() {
-//       var div = this.parentElement;
-//       div.style.display = "none";
-//     }
-//   }
-// }
-
+// 新增Todo
 function addToDo() {
   var li = document.createElement("li");
   var liContent = `
