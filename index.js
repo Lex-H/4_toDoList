@@ -32,7 +32,7 @@ let listData = {
 function HTMLgenerator() {
   var liHTML =""; // 所有li都集合在這個字串裡
   proxyListDataData.forEach(function(item, index) {
-    newLI = '<li>'+
+    newLI = '<li'+' id="'+index.toString()+'" '+'>'+
               '<img src="src/img/handle.png" class="handle">'+
               '<img src="src/img/checkBox.svg" class="checkBox">'+
               '<div class="toDo">'+
@@ -60,6 +60,8 @@ function updateToDoListUL() {
   </ul>
   `;
   document.getElementById("toDoListUL").outerHTML = newHTML;
+  // 重新綁訂所有事件，因為用了outerHTML
+  
 }
 
 
@@ -190,8 +192,11 @@ document.addEventListener('blur', function(event) {
 
   // 點擊事件：delete
   if (classClicked.includes('delete')) {
-    var div = ev.target.parentElement;
-    div.remove();
+    // var div = ev.target.parentElement;
+    // div.remove();
+
+    index = ev.target.parentElement.getAttribute("id");
+    proxyListDataData.splice(index, 1);
   }
   
 }, false);
