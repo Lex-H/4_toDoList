@@ -1,5 +1,5 @@
 // 物件：資料處理
-let listDada = {
+let listData = {
   // 預設data，若localStorage無資料則將預設data存入
   data: [
     {
@@ -28,15 +28,87 @@ let listDada = {
   },
 }
 
+// 生成li的HTML文本(利用proxyListDataData)
+function HTMLgenerator() {
+  var liHTML =""; // 所有li都集合在這個字串裡
+  proxyListDataData.forEach(function(item, index) {
+    newLI = '<li>'+
+              '<img src="src/img/handle.png" class="handle">'+
+              '<img src="src/img/checkBox.svg" class="checkBox">'+
+              '<div class="toDo">'+
+                  item.title+
+              '</div>'+
+              '<img src="src/img/delete.svg" class="delete">'+
+          '</li>';
+    liHTML += newLI;
+  })
+  return liHTML
+}
+
+// 函數：更新ToDoListUL
+function updateToDoListUL() {
+  var newHTML = `
+  <ul id="toDoListUL">
+        ${HTMLgenerator()}
+
+        <li onclick="addToDo()">
+            <img src="src/img/addToDo.svg" class="addToDo">
+            <div>
+                代辦事項
+            </div>
+        </li>   
+  </ul>
+  `;
+  document.getElementById("toDoListUL").outerHTML = newHTML;
+}
+
+
+// 設定一個監視數組(listData.data)的功能
+// 使用Proxy，來自Copilot，這裡細節不太懂
+// 為了實現監視數組(listData.data)，每次要更改listData.data，都應該使用代理更改，簡言之要改listData.data就改proxyListDataData
+// EX： 我想要 listData.data[0]=0，實際上應該proxyListDataData[0]=0
+function createDeepProxy(target, handler) {
+  if (typeof target === 'object' && target !== null) {
+      for (let key in target) {
+          target[key] = createDeepProxy(target[key], handler);
+      }
+      return new Proxy(target, handler);
+  }
+  return target;
+}
+
+let handler = {
+  set(target, property, value) {
+      console.log(`Property changed: ${property} = ${value}`);
+      target[property] = value;
+      functionWhenProxyListDataDataChanged();
+      return true;
+  }
+};
+
+let proxyListDataData = createDeepProxy(listData.data, handler);
+
+// 每當proxyListDataData變化時會發生的事
+function functionWhenProxyListDataDataChanged() {
+  // 更新HTML頁面的toDoListUL
+  updateToDoListUL();
+
+  // 儲存listData.data到localStorage
+  listData.save(listData.data); 
+
+  console.log("Array or object property has been modified!");
+}
+// 設定一個監視數組(listData.data)的功能 END
+
 
 // --- 初始化：載入頁面時 ---
 // 從localStorage載入數據
-listDada.load()
-// 渲染列表
-
+listData.load()
+// 渲染toDoListUL
+updateToDoListUL()
 
 // 點擊事件：li裡面所有的點擊事件
-var list = document.getElementById("myUL");
+var list = document.getElementById("toDoListUL");
 list.addEventListener('click', function(ev) {
   var classClicked =  ev.target.getAttribute('class');
   if (classClicked === null) {
@@ -125,21 +197,26 @@ document.addEventListener('blur', function(event) {
 }, false);
 
 
-// 新增Todo
+// 新增toDo
 function addToDo() {
-  var li = document.createElement("li");
-  var liContent = `
-    <li>
-            <img src="src/img/handle.png" class="handle">
-            <img src="src/img/checkBox.svg" class="checkBox">
-            <div class="toDo">
-            </div>
-            <img src="src/img/delete.svg" class="delete">
-    </li>
-  `;
+  // var li = document.createElement("li");
+  // var liContent = `
+  //   <li>
+  //           <img src="src/img/handle.png" class="handle">
+  //           <img src="src/img/checkBox.svg" class="checkBox">
+  //           <div class="toDo">
+  //           </div>
+  //           <img src="src/img/delete.svg" class="delete">
+  //   </li>
+  // `;
   
-  var list = document.getElementById("myUL");
-  var referenceNode = list.children[list.children.length - 1]; // 倒數第一個子節點
-  list.insertBefore(li, referenceNode);
-  li.outerHTML = liContent;
+  // var list = document.getElementById("toDoListUL");
+  // var referenceNode = list.children[list.children.length - 1]; // 倒數第一個子節點
+  // list.insertBefore(li, referenceNode);
+  // li.outerHTML = liContent;
+
+  proxyListDataData.push({
+    title: "",
+    checked: false,
+  });
 }
